@@ -81,6 +81,7 @@ public class FlintlockItem extends Item
 							if((bulletType == 0 && s.getItem() == ModItems.bullets) || (bulletType == 1 && s.getItem() == ModItems.kairosekiBullets))
 							{
 								player.inventory.decrStackSize(i, 1);
+								break;
 							}
 						}
 					}
@@ -100,6 +101,7 @@ public class FlintlockItem extends Item
 								
 								itemStack.getTag().putInt("gunPowder", count);
 								player.inventory.decrStackSize(i, count);
+								break;
 							}
 						}
 					}
