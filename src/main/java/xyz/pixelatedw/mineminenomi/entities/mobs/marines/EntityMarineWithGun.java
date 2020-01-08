@@ -70,13 +70,17 @@ public class EntityMarineWithGun extends EntityGenericMarine implements IRangedA
 	public void attackEntityWithRangedAttack(LivingEntity target, float distance)
 	{
 		AbilityProjectile proj = new ExtraProjectiles.NormalBullet(this.world, this, ModExtraAttributes.NORMAL_BULLET);
-		
-		double velX = target.posX - this.posX;
-		double velY = target.getBoundingBox().minY + this.getAttackTarget().getHeight() / 3.0F - (this.posY + this.getHeight());
-		double velZ = target.posZ - this.posZ;
-		double x = MathHelper.sqrt(velX * velX + velZ * velZ);
-		
-		proj.shoot(velX, velY + x * 0.2F, velZ, 1.6F, 14 - this.world.getDifficulty().getId() * 4);
-		this.world.addEntity(proj);
+		LivingEntity attackTarget = this.getAttackTarget();
+
+		if(attackTarget != null) {
+			double velX = target.posX - this.posX;
+			double velY = target.getBoundingBox().minY + this.getAttackTarget().getHeight() / 3.0F - (this.posY + this.getHeight());
+			double velZ = target.posZ - this.posZ;
+			double x = MathHelper.sqrt(velX * velX + velZ * velZ);
+
+			proj.shoot(velX, velY + x * 0.2F, velZ, 1.6F, 14 - this.world.getDifficulty().getId() * 4);
+			this.world.addEntity(proj);
+		}
+
 	}
 }
