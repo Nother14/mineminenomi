@@ -55,6 +55,7 @@ public class ID
 	PARTICLEFX_RUSTTOUCH = "rustTouch",
 	PARTICLEFX_CHLOROBALL = "chloroBall",
 	PARTICLEFX_CHLOROBALLCLOUD = "chloroBallCloud",
+	PARTICLEFX_GONBOMBA = "gonBomba",
 			
 	EXTRAEFFECT_MERO = "mero",
 	EXTRAEFFECT_HIE = "hie",
