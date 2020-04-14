@@ -1,0 +1,139 @@
+package xyz.pixelatedw.mineminenomi.abilities;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import xyz.pixelatedw.mineminenomi.ID;
+import xyz.pixelatedw.mineminenomi.api.WyHelper;
+import xyz.pixelatedw.mineminenomi.api.abilities.Ability;
+import xyz.pixelatedw.mineminenomi.api.abilities.extra.AbilityExplosion;
+import xyz.pixelatedw.mineminenomi.init.ModAttributes;
+import xyz.pixelatedw.mineminenomi.init.ModNetwork;
+import xyz.pixelatedw.mineminenomi.packets.server.SParticlesPacket;
+import xyz.pixelatedw.mineminenomi.values.ModValues;
+
+public class GolAbilities
+{
+    static
+    {
+        ModValues.abilityWebAppExtraParams.put("gonbomba", new String[] {"desc", "The user cover his hand with gold which is doing an explosive point."});
+        ModValues.abilityWebAppExtraParams.put("goninferno", new String[] {"desc", "Functions like 'gonbomba' but stronger."});
+        ModValues.abilityWebAppExtraParams.put("goldenarmor", new String[] {"desc", "Give the other player a golden armor."});
+        ModValues.abilityWebAppExtraParams.put("goldenwall", new String[] {"desc", "Create a little wall in front of the player."});
+        
+    }
+    
+    public static Ability[] abilitiesArray = new Ability[] {new GonBomba(), new GonInferno(), new GoldenArmor(), new GoldenWall()};
+    
+    public static class GonBomba extends Ability
+    {
+
+        public GonBomba()
+        {
+            super(ModAttributes.GON_BOMBA);
+        }
+        @Override
+        public void hitEntity(PlayerEntity player, LivingEntity target) 
+        {           
+            super.hitEntity(player, target);
+            target.attackEntityFrom(DamageSource.causePlayerDamage(player), 60);
+            AbilityExplosion explosion = WyHelper.newExplosion(player, target.posX, target.posY, target.posZ, 5);
+            explosion.setDamageOwner(false);
+            explosion.setSmokeParticles("");
+            explosion.doExplosion();
+            ModNetwork.sendToAllAround(new SParticlesPacket(ID.PARTICLEFX_GONGOMBA, player), (ServerPlayerEntity) player);
+        }
+        
+    }
+    
+    public static class GonInferno extends Ability
+    {
+        public GonInferno()
+        {
+            super(ModAttributes.GON_INFERNO);
+        }
+        @Override
+        public void hitEntity(PlayerEntity player, LivingEntity target)
+        {
+            super.hitEntity(player, target);
+            target.attackEntityFrom(DamageSource.causePlayerDamage(player), 200);
+            AbilityExplosion explosion = WyHelper.newExplosion(player, target.posX, target.posY, target.posZ, 8);
+            explosion.setDamageOwner(false);
+            explosion.setSmokeParticles("");
+            explosion.doExplosion();
+            ModNetwork.sendToAllAround(new SParticlesPacket(ID.PARTICLEFX_GONGOMBA, player), (ServerPlayerEntity) player);
+        }
+    }
+    
+    public static class GoldenArmor extends Ability
+    {
+        public GoldenArmor()
+        {
+            super(ModAttributes.GOLDEN_ARMOR);
+        }
+        @Override
+        public void hitEntity(PlayerEntity player, LivingEntity target)
+        {
+            target.setItemStackToSlot(EquipmentSlotType.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+            target.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
+            target.setItemStackToSlot(EquipmentSlotType.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
+            target.setItemStackToSlot(EquipmentSlotType.FEET, new ItemStack(Items.GOLDEN_BOOTS));
+            
+            super.hitEntity(player, target);
+        }
+        
+    }
+    
+    public static class GoldenWall extends Ability
+    {
+        private List<int[]> blockList = new ArrayList<int[]>();
+        
+        public GoldenWall()
+        {
+            super(ModAttributes.GOLDEN_WALL);
+        }
+        
+        @Override
+        public void passive(PlayerEntity player)
+        {
+            if(!this.isOnCooldown)
+            {
+                if(this.blockList.isEmpty())
+                {
+                    if(WyHelper.get4Directions(player) == WyHelper.Direction.NORTH)
+                        this.blockList = WyHelper.createFilledCube(player.world, player.posX, player.posY, player.posZ - 3, new int[] {3, 4, 1}, Blocks.GOLD_BLOCK, "air", "foliage", "nogrief");
+                    if(WyHelper.get4Directions(player) == WyHelper.Direction.SOUTH)
+                        this.blockList = WyHelper.createFilledCube(player.world, player.posX, player.posY, player.posZ + 3, new int[] {3, 4, 1}, Blocks.GOLD_BLOCK, "air", "foliage", "nogrief");
+                    if(WyHelper.get4Directions(player) == WyHelper.Direction.EAST)
+                        this.blockList = WyHelper.createFilledCube(player.world, player.posX + 3, player.posY, player.posZ, new int[] {1, 4, 3}, Blocks.GOLD_BLOCK, "air", "foliage", "nogrief");
+                    if(WyHelper.get4Directions(player) == WyHelper.Direction.WEST)
+                        this.blockList = WyHelper.createFilledCube(player.world, player.posX - 3, player.posY, player.posZ, new int[] {1, 4, 3}, Blocks.GOLD_BLOCK, "air", "foliage", "nogrief");
+                }
+                super.passive(player);
+            }
+        }
+        
+        @Override
+        public void endPassive(PlayerEntity player) 
+        {
+            for(int[] blockPos : this.blockList)
+            {
+                if(player.world.getBlockState(new BlockPos(blockPos[0], blockPos[1], blockPos[2])).getBlock() == Blocks.GOLD_BLOCK)
+                    player.world.setBlockState(new BlockPos(blockPos[0], blockPos[1], blockPos[2]), Blocks.AIR.getDefaultState());
+            }
+            this.blockList = new ArrayList<int[]>();
+            this.startCooldown();
+            this.startExtUpdate(player);
+        }
+    }
+
+}
