@@ -180,6 +180,9 @@ public class CustomParticleManager
 		map.put(ID.PARTICLEFX_KASURIUTAFUBUKIGIRI, new ParticleEffectKasuriutaFubukiGiri1());
 		map.put(ID.PARTICLEFX_SOULPARADE, new ParticleEffectSoulParade());
 		
+		//Gol
+		map.put(ID.PARTICLEFX_GONBOMBA, new ParticleEffectGonBomba());
+		
 		return map;
 	}
 	
