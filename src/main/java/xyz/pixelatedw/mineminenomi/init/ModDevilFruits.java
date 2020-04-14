@@ -113,7 +113,7 @@ public class ModDevilFruits
 			MeroMeroNoMi, GoeGoeNoMi, KiloKiloNoMi, HanaHanaNoMi, HoruHoruNoMi, BetaBetaNoMi, IshiIshiNoMi, 
 			PamuPamuNoMi, UshiUshiNoMiBison, ToriToriNoMiPhoenix, BakuBakuNoMi, YomiYomiNoMi, ZouZouNoMi,
 			SabiSabiNoMi, HitoHitoNoMi, ChiyuChiyuNoMi, MoguMoguNoMi, UshiUshiNoMiGiraffe, DoaDoaNoMi,
-			KachiKachiNoMi, MiniMiniNoMi;
+			KachiKachiNoMi, MiniMiniNoMi, GolGolNoMi;
 
 	private static final Ability[][] ALL_ABILITIES = 
 		{
@@ -125,7 +125,7 @@ public class ModDevilFruits
 			NoroAbilities.abilitiesArray, GomuAbilities.abilitiesArray, JuryoAbilities.abilitiesArray, UshiBisonAbilities.abilitiesArray, ToriPhoenixAbilities.abilitiesArray,
 			/*KiloAbilities.abilitiesArray,*/ BakuAbilities.abilitiesArray, OriAbilities.abilitiesArray, YomiAbilities.abilitiesArray, ZouAbilities.abilitiesArray,
 			SabiAbilities.abilitiesArray, SupaAbilities.abilitiesArray, MeroAbilities.abilitiesArray, ChiyuAbilities.abilitiesArray, HoruAbilities.abilitiesArray, MoguAbilities.abilitiesArray,
-			DoaAbilities.abilitiesArray, KachiAbilities.abilitiesArray, UshiGiraffeAbilities.abilitiesArray,
+			DoaAbilities.abilitiesArray, KachiAbilities.abilitiesArray, UshiGiraffeAbilities.abilitiesArray, GolGolNoMi.abilitiesArray,
 
 			// Special Abilities lists
 			RokushikiAbilities.abilitiesArray, FishKarateAbilities.abilitiesArray, CyborgAbilities.abilitiesArray, 
@@ -241,7 +241,9 @@ public class ModDevilFruits
 		HieHieNoMi = new AkumaNoMiItem(EnumFruitType.LOGIA, HieAbilities.abilitiesArray);
 		registerDevilFruit(HieHieNoMi, "Hie Hie no Mi");
 		MeraMeraNoMi = new AkumaNoMiItem(EnumFruitType.LOGIA, MeraAbilities.abilitiesArray);
-		registerDevilFruit(MeraMeraNoMi, "Mera Mera no Mi");        
+		registerDevilFruit(MeraMeraNoMi, "Mera Mera no Mi");
+	        GolGolNoMi = new AkumaNoMiItem(EnumFruitType.PARAMECIA, GolAbilities.abilitiesArray);
+	        registerDevilFruit(GolGolNoMi, "Gol Gol no Mi");
 		
 		for (int i = 0; i < ALL_ABILITIES.length; i++)
 		{		
