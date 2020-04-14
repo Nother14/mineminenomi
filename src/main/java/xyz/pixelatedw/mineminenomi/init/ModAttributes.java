@@ -257,7 +257,12 @@ public class ModAttributes
 	public static AbilityAttribute SANBYAKUROKUJU_POUND_HO = new AbilityAttribute("Sanbyakurokuju Pound Ho").setAbilityCooldown(5).setProjectileTicks(100).setProjectileModel(ModelType.CUBE).setProjectileSize(6, 0.4, 1.5).setProjectileColor("bbf7b4").setProjectileDamage(18).setProjectileExplosion(3, false);
 	public static AbilityAttribute YAKKODORI = new AbilityAttribute("Yakkodori").setAbilityCooldown(3).setAbilityCooldown(5).setProjectileTicks(20).setProjectileModel(ModelType.CUBE).setProjectileSize(0.4, 6, 0.4).setProjectileColor("bbf7b4").setProjectileDamage(10).setProjectileExplosion(1, false).setProjectileMoveThroughBlocks(true);
 	public static AbilityAttribute O_TATSUMAKI = new AbilityAttribute("O Tatsumaki").setAbilityCooldown(7);
-		
+	
+	public static AbilityAttribute GON_BOMBA = new AbilityAttribute("Gon Bomba").setAbilityCooldown(5).setAbilityPassive().setAbilityPunch();
+	public static AbilityAttribute GON_INFERNO = new AbilityAttribute("Gon Inferno").setAbilityCooldown(20).setAbilityPassive().setAbilityPunch();
+	public static AbilityAttribute GOLDEN_ARMOR = new AbilityAttribute("Golden Armor").setAbilityCooldown(50).setAbilityPassive().setAbilityPunch();
+	public static AbilityAttribute GOLDEN_WALL = new AbilityAttribute("Golden Wall").setAbilityCooldown(40).setAbilityPassive();
+	
 	//public static AbilityAttribute MURASAME = new AbilityAttribute("Murasame").setAbilityCooldown(250).setProjectileModel(ModelType.CUBE).setProjectileColor("00CED1").setProjectileSize(1.8, 1, 1).setProjectileDamage(15).setAbilityRepeater();
 	//public static AbilityAttribute YARINAMI = new AbilityAttribute("Yarinami").setAbilityCooldown(150).setProjectileModel(ModelType.CUBE).setProjectileColor("00CED1").setProjectileSize(3, 1, 1).setProjectileDamage(15);
 	
